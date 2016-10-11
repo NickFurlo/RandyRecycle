@@ -41,7 +41,9 @@
         android:layout_marginBottom="43dp"
         android:layout_above="@+id/button3"
         android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+        android:layout_alignStart="@+id/button"
+        android:onClick="openOptions"
+        />
 
     <Button
         android:text="Leaderboard"
@@ -49,6 +51,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/button3"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="openleaderboard"
+    />
 
 </RelativeLayout>
