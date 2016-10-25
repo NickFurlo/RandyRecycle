@@ -12,47 +12,54 @@
     tools:context="cit280.randyrecycle.MainActivity"
     android:clickable="false">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome!"
-        android:id="@+id/textView"
-        android:layout_marginTop="21dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="36sp" />
-
     <Button
-        android:text="Play"
+        android:text="Leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:elevation="0dp"
-        android:layout_marginBottom="37dp"
-        android:layout_above="@+id/button2"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/leaderboardButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="openleaderboard"
+    />
 
     <Button
         android:text="Options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_marginBottom="43dp"
-        android:layout_above="@+id/button3"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:id="@+id/optionsButton"
         android:onClick="openOptions"
-        />
+        android:layout_above="@+id/leaderboardButton"
+        android:layout_alignLeft="@+id/playButton"
+        android:layout_alignStart="@+id/playButton" />
 
     <Button
-        android:text="Leaderboard"
+        android:text="Play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/playButton"
+        android:elevation="0dp"
+        android:layout_above="@+id/optionsButton"
         android:layout_centerHorizontal="true"
-        android:onClick="openleaderboard"
-    />
+        android:onClick="openGame" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/randy_main_menu"
+        android:id="@+id/randy"
+        android:layout_marginBottom="138dp"
+        android:layout_above="@+id/playButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/logo"
+        android:id="@+id/logo"
+        android:layout_marginTop="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

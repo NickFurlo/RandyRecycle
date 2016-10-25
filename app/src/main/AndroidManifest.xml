@@ -40,6 +40,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cit280.randyrecycle.MainActivity" />
         </activity>
+        <activity
+            android:name=".GameActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_game"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/FullscreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cit280.randyrecycle.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

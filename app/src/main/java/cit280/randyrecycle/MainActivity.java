@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    public void openGame(View view) {
+        // open options in response to options button
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
     public void openOptions(View view) {
         // open options in response to options button
         Intent intent = new Intent(this, OptionsActivity.class);
