@@ -14,7 +14,7 @@
          android:fitsSystemWindows. -->
 
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="643dp"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:id="@+id/frame_layout">
@@ -39,7 +39,8 @@
             android:id="@+id/randy"
             android:clickable="true"
             android:adjustViewBounds="true"
-            android:paddingTop="200sp"/>
+            android:paddingTop="200sp"
+            android:onClick="onTouch" />
 
     </FrameLayout>
 

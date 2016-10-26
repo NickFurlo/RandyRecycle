@@ -1,5 +1,6 @@
 package cit280.randyrecycle;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,8 @@ public class LeaderboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Leaderboard");
 
+        //force portrait orientation
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

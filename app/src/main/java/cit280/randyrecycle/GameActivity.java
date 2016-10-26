@@ -10,14 +10,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -91,11 +94,11 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_game);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+
         }
 
         mVisible = true;
@@ -118,8 +121,44 @@ public class GameActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.randy).setOnTouchListener(mDelayHideTouchListener);
+
+        //for onTouch
+        final View dragView = findViewById(R.id.randy);
+        dragView.setOnTouchListener(this);
     }
 
+    //URL=http://www.singhajit.com/android-draggable-view/
+    float dX, dY;
+    int lastAction;
+    public boolean onTouch(View view, MotionEvent event) {
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                dX = view.getX() - event.getRawX();
+                //dY = view.getY() - event.getRawY();
+                lastAction = MotionEvent.ACTION_DOWN;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                //view.setY(event.getRawY() + dY);
+                float newX = event.getRawX() + dX;
+                if(newX>-885 && newX<1400){
+                    view.setX(newX);
+                }
+                double testx =event.getRawX() + dX;
+                System.out.println(testx);
+                lastAction = MotionEvent.ACTION_MOVE;
+                break;
+
+            case MotionEvent.ACTION_UP:
+                if (lastAction == MotionEvent.ACTION_DOWN)
+                    Toast.makeText(GameActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
+                break;
+
+            default:
+                return false;
+        }
+        return true;
+    }
 
 
 
