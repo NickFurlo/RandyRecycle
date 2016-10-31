@@ -14,8 +14,8 @@
          android:fitsSystemWindows. -->
 
     <FrameLayout
-        android:layout_width="643dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:id="@+id/frame_layout">
 
@@ -23,7 +23,7 @@
             android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom|center_horizontal"
             android:background="@color/black_overlay"
             android:orientation="horizontal"
@@ -41,6 +41,16 @@
             android:adjustViewBounds="true"
             android:paddingTop="200sp"
             android:onClick="onTouch" />
+
+        <TextView
+            android:text="40"
+            android:layout_width="57dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/timer"
+            android:fontFamily="sans-serif"
+            android:textSize="40sp"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:layout_gravity="top|left"/>
 
     </FrameLayout>
 

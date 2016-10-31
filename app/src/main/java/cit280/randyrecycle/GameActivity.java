@@ -2,6 +2,7 @@ package cit280.randyrecycle;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -100,6 +102,18 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         }
+        //Create and start countdown Timer
+        new CountDownTimer(30000, 1000) {
+            TextView timerText = (TextView) findViewById(R.id.timer);
+
+            public void onTick(long millisUntilFinished) {
+                timerText.setText(""+millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                timerText.setText(""+0);
+            }
+        }.start();
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -141,7 +155,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             case MotionEvent.ACTION_MOVE:
                 //view.setY(event.getRawY() + dY);
                 float newX = event.getRawX() + dX;
-                if(newX>-885 && newX<1400){
+                if(newX>-885 && newX<1015){
                     view.setX(newX);
                 }
                 double testx =event.getRawX() + dX;
@@ -151,7 +165,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
             case MotionEvent.ACTION_UP:
                 if (lastAction == MotionEvent.ACTION_DOWN)
-                    Toast.makeText(GameActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
                 break;
 
             default:
