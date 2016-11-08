@@ -23,7 +23,7 @@
             android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="385dp"
             android:layout_gravity="bottom|center_horizontal"
             android:background="@color/black_overlay"
             android:orientation="horizontal"
@@ -43,15 +43,66 @@
             android:onClick="onTouch" />
 
         <TextView
-            android:text="40"
-            android:layout_width="57dp"
+            android:text="Time:"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/timer"
+            android:id="@+id/timerText"
             android:fontFamily="sans-serif"
-            android:textSize="40sp"
             android:textColor="?android:attr/textColorPrimaryInverse"
-            android:layout_gravity="top|left"/>
+            android:textSize="30sp" />
 
+        <TextView
+            android:text="40"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/timerValue"
+            android:fontFamily="sans-serif"
+            android:textSize="30sp"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:layout_gravity="top|left"
+            android:paddingLeft="75dp" />
+
+        <TextView
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|top"
+            android:id="@+id/collectedValue"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="30sp"
+             />
+
+        <TextView
+            android:text="Points:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|top"
+            android:id="@+id/collectedText"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="30sp"
+            android:paddingRight="30dp" />
+
+        <TextView
+            android:text="Health:"
+            android:layout_width="match_parent"
+            android:layout_height="83dp"
+            android:gravity="right"
+            android:id="@+id/healthText"
+            android:paddingLeft="450dp"
+            android:textSize="30sp"
+            android:textColor="@android:color/holo_red_light"
+            android:paddingTop="30dp"
+            android:paddingRight="25dp"/>
+
+        <TextView
+        android:text="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:id="@+id/healthValue"
+        android:paddingTop="30dp"
+        android:textSize="30sp"
+        android:textColor="@android:color/holo_red_light" />
     </FrameLayout>
 
 </FrameLayout>

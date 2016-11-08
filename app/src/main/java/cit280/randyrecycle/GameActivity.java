@@ -104,7 +104,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         }
         //Create and start countdown Timer
         new CountDownTimer(30000, 1000) {
-            TextView timerText = (TextView) findViewById(R.id.timer);
+            TextView timerText = (TextView) findViewById(R.id.timerValue);
 
             public void onTick(long millisUntilFinished) {
                 timerText.setText(""+millisUntilFinished / 1000);
@@ -142,6 +142,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     //URL=http://www.singhajit.com/android-draggable-view/
+    //Move randy on x by dragging finger
     float dX, dY;
     int lastAction;
     public boolean onTouch(View view, MotionEvent event) {
