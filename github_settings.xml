@@ -1,0 +1,7 @@
+<application>
+  <component name="GithubSettings">
+    <option name="LOGIN" value="GraydonPeck" />
+    <option name="HOST" value="https://github.com" />
+    <option name="AUTH_TYPE" value="BASIC" />
+  </component>
+</application>
