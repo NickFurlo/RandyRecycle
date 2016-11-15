@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    tools:context="cit280.randyrecycle.GameActivity">
+    tools:context="cit280.randyrecycle.GameActivity"
+    >
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -16,7 +17,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         android:id="@+id/frame_layout">
 
         <LinearLayout
@@ -39,8 +40,9 @@
             android:id="@+id/randy"
             android:clickable="true"
             android:adjustViewBounds="true"
-            android:paddingTop="200sp"
-            android:onClick="onTouch" />
+            android:paddingTop="260sp"
+            android:onClick="onTouch"
+            />
 
         <TextView
             android:text="Time:"
@@ -69,7 +71,7 @@
             android:gravity="right|top"
             android:id="@+id/collectedValue"
             android:textColor="@android:color/holo_green_light"
-            android:textSize="30sp"
+            android:textSize="20sp"
              />
 
         <TextView
@@ -79,20 +81,20 @@
             android:gravity="right|top"
             android:id="@+id/collectedText"
             android:textColor="@android:color/holo_green_light"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:paddingRight="30dp" />
 
         <TextView
             android:text="Health:"
             android:layout_width="match_parent"
-            android:layout_height="83dp"
+            android:layout_height="80dp"
             android:gravity="right"
             android:id="@+id/healthText"
-            android:paddingLeft="450dp"
-            android:textSize="30sp"
+            android:paddingLeft="440dp"
+            android:textSize="20sp"
             android:textColor="@android:color/holo_red_light"
             android:paddingTop="30dp"
-            android:paddingRight="25dp"/>
+            android:paddingRight="30dp"/>
 
         <TextView
         android:text="5"
@@ -101,8 +103,37 @@
         android:gravity="right"
         android:id="@+id/healthValue"
         android:paddingTop="30dp"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textColor="@android:color/holo_red_light" />
+
+        <ImageView
+            android:id="@+id/posbottle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/posbottle"
+            />
+
+        <ImageView
+            android:id="@+id/poscan"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/poscan"
+            />
+
+        <ImageView
+            android:id="@+id/posmilk"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/posmilk"
+            />
+
+        <ImageView
+            android:id="@+id/posmag"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/posmag"
+            />
+
     </FrameLayout>
 
 </FrameLayout>

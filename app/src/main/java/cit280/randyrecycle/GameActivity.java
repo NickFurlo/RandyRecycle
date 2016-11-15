@@ -2,15 +2,18 @@ package cit280.randyrecycle;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,11 +21,58 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Random;
+
+import static cit280.randyrecycle.R.drawable.randy;
+import static cit280.randyrecycle.R.id.collectedValue;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
+
+    //loading in PNG files Sam created, Aaron/Graydon/Nick
+    //Also getting screen size for spawning objects off screen
+    private ImageView posbottle;
+    private ImageView poscan;
+    private ImageView posmilk;
+    private ImageView posmag;
+    private ImageView randyNew;
+    private int frameHeight = 300;
+    private int frameWidth;
+    private int randySize;
+    private int screenWidth;
+    private int screenHeight;
+    private int randyY = (450);
+    private float randyX;
+    private int posbottleX;
+    private int posbottleY;
+    private int poscanX;
+    private int poscanY;
+    private int posmagX;
+    private int posmagY;
+    private int posmilkX;
+    private int posmilkY;
+    private int score;
+    private TextView collectedValue;
+
+    //instantiate variables to change speed of certain objects falling, Aaron/Graydon
+    private int bottleSpeed;
+    private int canSpeed;
+    private int magSpeed;
+    private int milkSpeed;
+
+    //flags to start game and see if screen has been touched Aaron
+    private boolean action_flg = false;
+    private boolean start_flg = false;
+
+    //handler to handle runnables objects Aaron/Graydon, timer to start objects falling
+    private Handler handler = new Handler();
+    private Timer timer = new Timer();
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -100,10 +150,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-
         }
-        //Create and start countdown Timer
-        new CountDownTimer(30000, 1000) {
+        //Create and start countdown Timer Nick/Aaron
+        new CountDownTimer(60000, 1000) {
             TextView timerText = (TextView) findViewById(R.id.timerValue);
 
             public void onTick(long millisUntilFinished) {
@@ -119,11 +168,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.frame_layout);
 
-        //force landscape orientation
+        //force landscape orientation Nick
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 
-        // Set up the user interaction to manually show or hide the system UI.
+        // Set up the user interaction to manually show or hide the system UI. Nick
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,20 +183,182 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
+
         findViewById(R.id.randy).setOnTouchListener(mDelayHideTouchListener);
 
-        //for onTouch
+        //for onTouch Nick
         final View dragView = findViewById(R.id.randy);
         dragView.setOnTouchListener(this);
+
+        //loading image views for falling objects Graydon/Aaron/Stuart/Sam
+        //negbattery = (ImageView) findViewById(R.id.negbattery);
+        //negcandy = (ImageView) findViewById(R.id.negcandy);
+        //negcone = (ImageView) findViewById(R.id.negcone);
+        //negflower = (ImageView) findViewById(R.id.negflower);
+        posbottle = (ImageView) findViewById(R.id.posbottle);
+        poscan = (ImageView) findViewById(R.id.poscan);
+        posmilk = (ImageView) findViewById(R.id.posmilk);
+        posmag = (ImageView) findViewById(R.id.posmag);
+        collectedValue = (TextView) findViewById(R.id.collectedValue);
+
+        //get screen sizes to prepare display Aaron/Graydon
+        WindowManager wm = getWindowManager();
+        Display disp = wm.getDefaultDisplay();
+        Point size = new Point();
+        disp.getSize(size);
+        //set screen height/width base on above
+        screenWidth = size.x;
+        screenHeight = size.y;
+
+        //set speed variables, change number (lower = faster), moves relative to
+        // proportion of screen size Graydon/Aaron
+        bottleSpeed = Math.round(screenHeight/100);
+        canSpeed = Math.round(screenHeight/100);
+        magSpeed = Math.round(screenHeight/100);
+        milkSpeed = Math.round(screenHeight/100);
+
+        //set start positions for objects being spawned when game starts
+        //Graydon/Aaron
+        posbottle.setX(500);
+        posbottle.setY(0);
+        poscan.setX(500);
+        poscan.setY(-(10));
+        posmag.setX(500);
+        posmag.setY(-(10));
+        posmilk.setX(500);
+        posmilk.setY(-(10));
+
+
+
     }
 
-    //URL=http://www.singhajit.com/android-draggable-view/
-    //Move randy on x by dragging finger
+
+    public void changePos() {
+
+        hitCheck();
+
+        //positive items
+        posbottleY += bottleSpeed;
+        if (posbottleY > randyY) {
+            posbottleY = -(80);
+            posbottleX = (int) Math.floor(Math.random() * (screenWidth + posbottle.getWidth()));
+        }
+        posbottle.setX(posbottleX);
+        posbottle.setY(posbottleY);
+
+        poscanY += canSpeed;
+        if (poscanY > randyY) {
+            poscanY = -(20);
+            poscanX = (int) Math.floor(Math.random() * (screenWidth + poscan.getWidth()));
+        }
+        poscan.setX(poscanX);
+        poscan.setY(poscanY);
+
+        posmagY += 2;
+        if (posmagY > randyY) {
+            posmagY = -(100);
+            posmagX = (int) Math.floor(Math.random() * (screenWidth + posmag.getWidth()));
+        }
+        posmag.setX(posmagX);
+        posmag.setY(posmagY);
+
+        posmilkY += milkSpeed;
+        if (posmilkY > randyY) {
+            posmilkY = -(40);
+            posmilkX = (int) Math.floor(Math.random() * (screenWidth + posmilk.getWidth()));
+        }
+        posmilk.setX(posmilkX);
+        posmilk.setY(posmilkY);
+
+        //update score
+        collectedValue.setText("" + score);
+
+
+    }
+
+
+    public void hitCheck() {
+
+        //if the center of the item touches randy, it hits
+        //bottle hit check. This causes points to go up and items to despawn
+        int bottleCenterX = posbottleX + posbottle.getWidth() / 2;
+        int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
+
+        if(bottleCenterX == randyX){score += 1;
+        posbottleX = 200;
+        }
+
+        if (0 <= bottleCenterX && bottleCenterX <= randyX + randySize && randyY <= bottleCenterY &&
+                bottleCenterY <= randyY + randySize){
+            score += 1;
+            posbottleX = 100;
+        }
+
+        //can hitcheck
+        int canCenterX = poscanX + poscan.getWidth() / 2;
+        int canCenterY = poscanY + poscan.getHeight() / 2;
+        if (0 <= canCenterX && canCenterX <= randySize &&
+                randyY <= canCenterY && canCenterY <= randyY + randySize){
+
+            score += 2;
+            poscanX = 100;
+        }
+
+        //mag hitcheck
+        int magCenterX = posmagX + posmag.getWidth() / 2;
+        int magCenterY = posmagY + posmag.getHeight() / 2;
+
+
+        if (0 <= magCenterX && magCenterX <= randySize &&
+                randyY <= magCenterY && magCenterY <= randyY + randySize){
+
+            score += 3;
+            posmagX = 100;
+        }
+
+        //milk hit check
+        int milkCenterX = posmilkX + posmilk.getWidth() / 2;
+        int milkCenterY = posmilkY + posmilk.getHeight() / 2;
+
+
+        if (0 <= milkCenterY && milkCenterY <= randySize &&
+                randyX <= milkCenterX && milkCenterX <= randyX + randySize){
+
+            score += 4;
+            posmilkX = 100;
+        }
+
+
+    }
+
+        //URL=http://www.singhajit.com/android-draggable-view/
+    //Move randy on x by dragging finger Nick
     float dX, dY;
     int lastAction;
     public boolean onTouch(View view, MotionEvent event) {
+        //tap to start
+        if (start_flg == false){
+            start_flg = true;
+            //starts the objects falling Graydon/Aaron
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            changePos();
+                        }
+                    });
+                }
+            }, 0, 20);
+        }
+
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                //start object falling when screen is touched!!
+
+
+
                 dX = view.getX() - event.getRawX();
                 //dY = view.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
@@ -158,6 +369,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 float newX = event.getRawX() + dX;
                 if(newX>-885 && newX<1015){
                     view.setX(newX);
+                    randyX = newX;
                 }
                 double testx =event.getRawX() + dX;
                 System.out.println(testx);
@@ -172,6 +384,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 return false;
         }
         return true;
+
+
     }
 
 
