@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.media.MediaPlayer;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,6 +59,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private int posmilkY;
     private int score;
     private TextView collectedValue;
+    MediaPlayer gameSong;  //create media player
 
     //instantiate variables to change speed of certain objects falling, Aaron/Graydon
     private int bottleSpeed;
@@ -147,6 +149,13 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        
+         if( gameSong == null) {
+            gameSong = MediaPlayer.create(GameActivity.this, R.raw.game_act); //song from raw folder
+            gameSong.setLooping(true);
+            gameSong.start();
+        }
+        
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
