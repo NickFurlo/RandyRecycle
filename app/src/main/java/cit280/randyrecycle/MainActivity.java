@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        ourSong = MediaPlayer.create(MainActivity.this, R.raw.song); //song from raw folder
-        ourSong.start(); //starts song
-        
+        if( ourSong ==null) { //loops main song Sam
+            ourSong = MediaPlayer.create(MainActivity.this, R.raw.song); //song from raw folder
+            ourSong.setLooping(true);
+            ourSong.start();
+            }
         //force portrait orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
