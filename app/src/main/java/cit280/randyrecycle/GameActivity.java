@@ -27,6 +27,8 @@ import android.media.SoundPool;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 
+import java.io.IOException;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
