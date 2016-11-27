@@ -20,7 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import android.media.MediaPlayer;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -67,6 +72,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private int magSpeed;
     private int milkSpeed;
 
+    SoundPool soundPool;// For sound FX
+    int posID = -1;
+    int negID = -1;
+    int dieID = -1;
+    int loseLifeID = -1;
+    int pos2ID = -1;
+    int pos3ID = -1;
+    
     //flags to start game and see if screen has been touched Aaron
     private boolean action_flg = false;
     private boolean start_flg = false;
@@ -237,7 +250,26 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         posmilk.setX(500);
         posmilk.setY(-(10));
 
+     soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);   // Load the sounds
+        try {
+            AssetManager assetManager = this.getAssets();
+            AssetFileDescriptor descriptor;
+            descriptor = assetManager.openFd("pos.wav");
+            posID = soundPool.load(descriptor, 0);
+            descriptor = assetManager.openFd("pos2.wav");
+            pos2ID = soundPool.load(descriptor, 0);
+            descriptor = assetManager.openFd("pos3.wav");
+            pos3ID = soundPool.load(descriptor, 0);
+            descriptor = assetManager.openFd("neg.wav");
+            negID = soundPool.load(descriptor, 0);
+            descriptor = assetManager.openFd("lose.wav");
+            loseLifeID = soundPool.load(descriptor, 0);
+            descriptor = assetManager.openFd("die.wav");
+            dieID = soundPool.load(descriptor, 0);
 
+        } catch (IOException e) {
+            Log.e("error", "failed to load sound files"); // Print an error message
+        }
 
     }
 
@@ -308,7 +340,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         int canCenterY = poscanY + poscan.getHeight() / 2;
         if (0 <= canCenterX && canCenterX <= randySize &&
                 randyY <= canCenterY && canCenterY <= randyY + randySize){
-
+            soundPool.play(posID, 1, 1, 0, 0, 1);
             score += 2;
             poscanX = 100;
         }
@@ -320,7 +352,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         if (0 <= magCenterX && magCenterX <= randySize &&
                 randyY <= magCenterY && magCenterY <= randyY + randySize){
-
+            soundPool.play(pos2ID, 1, 1, 0, 0, 1);
             score += 3;
             posmagX = 100;
         }
@@ -332,7 +364,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         if (0 <= milkCenterY && milkCenterY <= randySize &&
                 randyX <= milkCenterX && milkCenterX <= randyX + randySize){
-
+            soundPool.play(pos3ID, 1, 1, 0, 0, 1);
             score += 4;
             posmilkX = 100;
         }
