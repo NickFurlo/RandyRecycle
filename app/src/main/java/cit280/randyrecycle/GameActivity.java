@@ -48,13 +48,13 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private ImageView poscan;
     private ImageView posmilk;
     private ImageView posmag;
-    private ImageView randyNew;
     private int frameHeight = 300;
     private int frameWidth;
-    private int randySize;
+    private float newX;
+    private int randySize = 30;
     private int screenWidth;
     private int screenHeight;
-    private int randyY = (450);
+    private int randyY = 440;
     private float randyX;
     private int posbottleX;
     private int posbottleY;
@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private int posmilkY;
     private int score;
     private TextView collectedValue;
-    MediaPlayer gameSong;  //create media player
+    MediaPlayer gameSong;  //create media player Sam
 
     //instantiate variables to change speed of certain objects falling, Aaron/Graydon
     private int bottleSpeed;
@@ -81,7 +81,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     int loseLifeID = -1;
     int pos2ID = -1;
     int pos3ID = -1;
-    
+
     //flags to start game and see if screen has been touched Aaron
     private boolean action_flg = false;
     private boolean start_flg = false;
@@ -164,13 +164,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        
-         if( gameSong == null) {
+
+        //game song By: Sam
+        if (gameSong == null) {
             gameSong = MediaPlayer.create(GameActivity.this, R.raw.game_act); //song from raw folder
             gameSong.setLooping(true);
             gameSong.start();
         }
-        
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -180,11 +181,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             TextView timerText = (TextView) findViewById(R.id.timerValue);
 
             public void onTick(long millisUntilFinished) {
-                timerText.setText(""+millisUntilFinished / 1000);
+                timerText.setText("" + millisUntilFinished / 1000);
             }
 
             public void onFinish() {
-                timerText.setText(""+0);
+                timerText.setText("" + 0);
             }
         }.start();
 
@@ -236,23 +237,23 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         //set speed variables, change number (lower = faster), moves relative to
         // proportion of screen size Graydon/Aaron
-        bottleSpeed = Math.round(screenHeight/100);
-        canSpeed = Math.round(screenHeight/100);
-        magSpeed = Math.round(screenHeight/100);
-        milkSpeed = Math.round(screenHeight/100);
+        bottleSpeed = Math.round(screenHeight / 160);
+        canSpeed = Math.round(screenHeight / 130);
+        magSpeed = Math.round(screenHeight / 155);
+        milkSpeed = Math.round(screenHeight / 100);
 
         //set start positions for objects being spawned when game starts
         //Graydon/Aaron
-        posbottle.setX(500);
-        posbottle.setY(0);
-        poscan.setX(500);
-        poscan.setY(-(10));
-        posmag.setX(500);
-        posmag.setY(-(10));
-        posmilk.setX(500);
-        posmilk.setY(-(10));
+        posbottle.setX(600);
+        posbottle.setY(-(100));
+        poscan.setX(600);
+        poscan.setY(-(100));
+        posmag.setX(600);
+        posmag.setY(-(100));
+        posmilk.setX(600);
+        posmilk.setY(-(100));
 
-     soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);   // Load the sounds
+        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);   // Load the sounds
         try {
             AssetManager assetManager = this.getAssets();
             AssetFileDescriptor descriptor;
@@ -277,13 +278,13 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
 
     public void changePos() {
-
         hitCheck();
+
 
         //positive items
         posbottleY += bottleSpeed;
         if (posbottleY > randyY) {
-            posbottleY = -(80);
+            posbottleY = -(140);
             posbottleX = (int) Math.floor(Math.random() * (screenWidth + posbottle.getWidth()));
         }
         posbottle.setX(posbottleX);
@@ -291,15 +292,15 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         poscanY += canSpeed;
         if (poscanY > randyY) {
-            poscanY = -(20);
+            poscanY = -(175);
             poscanX = (int) Math.floor(Math.random() * (screenWidth + poscan.getWidth()));
         }
         poscan.setX(poscanX);
         poscan.setY(poscanY);
 
-        posmagY += 2;
+        posmagY += magSpeed;
         if (posmagY > randyY) {
-            posmagY = -(100);
+            posmagY = -(120);
             posmagX = (int) Math.floor(Math.random() * (screenWidth + posmag.getWidth()));
         }
         posmag.setX(posmagX);
@@ -307,19 +308,15 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         posmilkY += milkSpeed;
         if (posmilkY > randyY) {
-            posmilkY = -(40);
+            posmilkY = -(200);
             posmilkX = (int) Math.floor(Math.random() * (screenWidth + posmilk.getWidth()));
         }
         posmilk.setX(posmilkX);
         posmilk.setY(posmilkY);
 
-        //update score
-        collectedValue.setText("" + score);
-
-
     }
 
-
+    //checking for hit detection to add score, subtract health Aaron/Graydon
     public void hitCheck() {
 
         //if the center of the item touches randy, it hits
@@ -327,36 +324,32 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         int bottleCenterX = posbottleX + posbottle.getWidth() / 2;
         int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
 
-        if(bottleCenterX == randyX){score += 1;
-        posbottleX = 200;
-        }
-
-        if (0 <= bottleCenterX && bottleCenterX <= randyX + randySize && randyY <= bottleCenterY &&
-                bottleCenterY <= randyY + randySize){
+        //catching bottles, once caught retrigger random spawn of bottle image
+        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 10 <= bottleCenterY ) {
+            soundPool.play(posID, 1, 1, 0, 0, 1);
+            posbottleY = 500;
             score += 1;
-            posbottleX = 100;
         }
 
-        //can hitcheck
+
+
+
+        //can hitcheck, once triggered reset random can positon
         int canCenterX = poscanX + poscan.getWidth() / 2;
         int canCenterY = poscanY + poscan.getHeight() / 2;
-        if (0 <= canCenterX && canCenterX <= randySize &&
-                randyY <= canCenterY && canCenterY <= randyY + randySize){
-            soundPool.play(posID, 1, 1, 0, 0, 1);
-            score += 2;
-            poscanX = 100;
+        if (canCenterX >= randyX- randySize && canCenterX <= randyX + randySize && randyY - 10 <= canCenterY){
+            soundPool.play(pos2ID, 1, 1, 0, 0, 1);
+            poscanY = 500;
+            score += 1;
         }
 
         //mag hitcheck
         int magCenterX = posmagX + posmag.getWidth() / 2;
         int magCenterY = posmagY + posmag.getHeight() / 2;
-
-
-        if (0 <= magCenterX && magCenterX <= randySize &&
-                randyY <= magCenterY && magCenterY <= randyY + randySize){
-            soundPool.play(pos2ID, 1, 1, 0, 0, 1);
-            score += 3;
-            posmagX = 100;
+        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 10 <= magCenterY ) {
+            soundPool.play(pos3ID, 1, 1, 0, 0, 1);
+            posmagY = 500;
+            score += 1;
         }
 
         //milk hit check
@@ -364,12 +357,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         int milkCenterY = posmilkY + posmilk.getHeight() / 2;
 
 
-        if (0 <= milkCenterY && milkCenterY <= randySize &&
-                randyX <= milkCenterX && milkCenterX <= randyX + randySize){
-            soundPool.play(pos3ID, 1, 1, 0, 0, 1);
-            score += 4;
-            posmilkX = 100;
+        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 10 <= milkCenterY ) {
+            soundPool.play(posID, 1, 1, 0, 0, 1);
+            posmilkY = 500;
+            score += 1;
         }
+
+        //update score Aaron/Nick
+        collectedValue.setText("" + score);
 
 
     }
@@ -398,28 +393,29 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                //start object falling when screen is touched!!
-
-
-
                 dX = view.getX() - event.getRawX();
                 //dY = view.getY() - event.getRawY();
+                //monitor randy X position for catching objects, while touching screen
+                randyX = event.getRawX();
                 lastAction = MotionEvent.ACTION_DOWN;
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 //view.setY(event.getRawY() + dY);
-                float newX = event.getRawX() + dX;
+                //monitor randy X position for catching objects, while moving randy on screen
+                randyX = event.getRawX();
+                newX = event.getRawX() + dX;
                 if(newX>-885 && newX<1015){
                     view.setX(newX);
-                    randyX = newX;
                 }
-                double testx =event.getRawX() + dX;
-                System.out.println(testx);
+                double testx = event.getRawX() + dX;
+                System.out.println("testX = " + testx);
                 lastAction = MotionEvent.ACTION_MOVE;
                 break;
 
             case MotionEvent.ACTION_UP:
+                //monitor randy X position for catching objects, while NOT moving randy on screen
+                randyX = event.getRawX();
                 if (lastAction == MotionEvent.ACTION_DOWN)
                 break;
 
