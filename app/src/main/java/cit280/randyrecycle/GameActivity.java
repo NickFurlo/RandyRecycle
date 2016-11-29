@@ -48,8 +48,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private ImageView poscan;
     private ImageView posmilk;
     private ImageView posmag;
-    private int frameHeight = 300;
-    private int frameWidth;
     private float newX;
     private int randySize = 30;
     private int screenWidth;
@@ -65,7 +63,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private int posmilkX;
     private int posmilkY;
     private int score;
+    //starting health value, change for levels Graydon
+    private int health = 20;
     private TextView collectedValue;
+    private TextView healthValue;
     MediaPlayer gameSong;  //create media player Sam
 
     //instantiate variables to change speed of certain objects falling, Aaron/Graydon
@@ -220,11 +221,20 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         //negcandy = (ImageView) findViewById(R.id.negcandy);
         //negcone = (ImageView) findViewById(R.id.negcone);
         //negflower = (ImageView) findViewById(R.id.negflower);
+
+        //when gameview is created, put images in Y-position for random respawn Graydon
         posbottle = (ImageView) findViewById(R.id.posbottle);
+        posbottleY = 501;
         poscan = (ImageView) findViewById(R.id.poscan);
+        poscanY = 501;
         posmilk = (ImageView) findViewById(R.id.posmilk);
+        posmilkY = 501;
         posmag = (ImageView) findViewById(R.id.posmag);
+        posmagY = 501;
+
+        //label textviews for score and health
         collectedValue = (TextView) findViewById(R.id.collectedValue);
+        healthValue = (TextView) findViewById(R.id.healthValue);
 
         //get screen sizes to prepare display Aaron/Graydon
         WindowManager wm = getWindowManager();
@@ -238,20 +248,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         //set speed variables, change number (lower = faster), moves relative to
         // proportion of screen size Graydon/Aaron
         bottleSpeed = Math.round(screenHeight / 160);
-        canSpeed = Math.round(screenHeight / 130);
-        magSpeed = Math.round(screenHeight / 155);
-        milkSpeed = Math.round(screenHeight / 100);
+        canSpeed = Math.round(screenHeight / 140);
+        magSpeed = Math.round(screenHeight / 130);
+        milkSpeed = Math.round(screenHeight / 110);
 
-        //set start positions for objects being spawned when game starts
-        //Graydon/Aaron
-        posbottle.setX(600);
-        posbottle.setY(-(100));
-        poscan.setX(600);
-        poscan.setY(-(100));
-        posmag.setX(600);
-        posmag.setY(-(100));
-        posmilk.setX(600);
-        posmilk.setY(-(100));
+
 
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);   // Load the sounds
         try {
@@ -276,14 +277,14 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     }
 
-
     public void changePos() {
+        //calling hit and miss checks while positions are changed
         hitCheck();
-
+        missCheck();
 
         //positive items
         posbottleY += bottleSpeed;
-        if (posbottleY > randyY) {
+        if (posbottleY > randyY + 60) {
             posbottleY = -(140);
             posbottleX = (int) Math.floor(Math.random() * (screenWidth + posbottle.getWidth()));
         }
@@ -291,7 +292,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         posbottle.setY(posbottleY);
 
         poscanY += canSpeed;
-        if (poscanY > randyY) {
+        if (poscanY > randyY + 60) {
             poscanY = -(175);
             poscanX = (int) Math.floor(Math.random() * (screenWidth + poscan.getWidth()));
         }
@@ -299,7 +300,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         poscan.setY(poscanY);
 
         posmagY += magSpeed;
-        if (posmagY > randyY) {
+        if (posmagY > randyY + 60) {
             posmagY = -(120);
             posmagX = (int) Math.floor(Math.random() * (screenWidth + posmag.getWidth()));
         }
@@ -307,7 +308,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         posmag.setY(posmagY);
 
         posmilkY += milkSpeed;
-        if (posmilkY > randyY) {
+        if (posmilkY > randyY + 60) {
             posmilkY = -(200);
             posmilkX = (int) Math.floor(Math.random() * (screenWidth + posmilk.getWidth()));
         }
@@ -316,30 +317,25 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     }
 
-    //checking for hit detection to add score, subtract health Aaron/Graydon
+    //checking for hit detection to add score and despawn objects caught Graydon/Aaron
     public void hitCheck() {
 
-        //if the center of the item touches randy, it hits
-        //bottle hit check. This causes points to go up and items to despawn
+        //bottle hit check, This causes points to go up and items to respawn
+        //catching bottles, once caught retrigger random spawn of bottle image
         int bottleCenterX = posbottleX + posbottle.getWidth() / 2;
         int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
-
-        //catching bottles, once caught retrigger random spawn of bottle image
         if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 10 <= bottleCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
-            posbottleY = 500;
+            posbottleY = 501;
             score += 1;
         }
-
-
-
 
         //can hitcheck, once triggered reset random can positon
         int canCenterX = poscanX + poscan.getWidth() / 2;
         int canCenterY = poscanY + poscan.getHeight() / 2;
         if (canCenterX >= randyX- randySize && canCenterX <= randyX + randySize && randyY - 10 <= canCenterY){
             soundPool.play(pos2ID, 1, 1, 0, 0, 1);
-            poscanY = 500;
+            poscanY = 501;
             score += 1;
         }
 
@@ -348,28 +344,55 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         int magCenterY = posmagY + posmag.getHeight() / 2;
         if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 10 <= magCenterY ) {
             soundPool.play(pos3ID, 1, 1, 0, 0, 1);
-            posmagY = 500;
+            posmagY = 501;
             score += 1;
         }
 
         //milk hit check
         int milkCenterX = posmilkX + posmilk.getWidth() / 2;
         int milkCenterY = posmilkY + posmilk.getHeight() / 2;
-
-
         if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 10 <= milkCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
-            posmilkY = 500;
+            posmilkY = 501;
             score += 1;
         }
 
-        //update score Aaron/Nick
+        //update score  on hitCheck() Aaron/Nick/Graydon
         collectedValue.setText("" + score);
-
-
     }
 
-        //URL=http://www.singhajit.com/android-draggable-view/
+    //once an item passes Randy's Y value and reaches y=490, decrease health by 1
+    //Graydon
+    public void missCheck() {
+        //checking for bottle miss
+        int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
+        if (bottleCenterY >= 490 && bottleCenterY <= 492){
+            health = health - 1;
+        }
+
+        //checking for can miss
+        int canCenterY = poscanY + poscan.getHeight() / 2;
+        if (canCenterY >= 490 && canCenterY <= 492){
+            health = health - 1;
+        }
+
+        //checking for magazine miss
+        int magCenterY = posmagY + posmag.getHeight() / 2;
+        if (magCenterY >= 490 && magCenterY <= 492){
+            health = health - 1;
+        }
+
+        //checking for milk miss
+        int milkCenterY = posmilkY + posmilk.getHeight() / 2;
+        if (milkCenterY >= 490 && milkCenterY <= 492){
+            health = health - 1;
+        }
+
+        //update health value on missCheck() Graydon
+        healthValue.setText("" + health);
+    }
+
+    //URL=http://www.singhajit.com/android-draggable-view/
     //Move randy on x by dragging finger Nick
     float dX, dY;
     int lastAction;
