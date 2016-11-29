@@ -35,6 +35,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
 
+import static cit280.randyrecycle.R.id.initalTimer;
+import static cit280.randyrecycle.R.id.textView;
 import static cit280.randyrecycle.R.id.timerValue;
 
 //import static cit280.randyrecycle.R.drawable.randy;
@@ -171,6 +173,18 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        //Countdown to start Nick
+        new CountDownTimer(4000, 1000) {
+            TextView initalTimer = (TextView)findViewById(R.id.initalTimer);
+            public void onTick(long millisUntilFinished) {
+                initalTimer.setText(Long.toString(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                initalTimer.setVisibility(View.GONE);
+            }
+        }.start();
 
         //game song By: Sam
         if (gameSong == null) {
@@ -398,7 +412,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             //Create and start countdown Timer Nick/Aaron
             //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
             new CountDownTimer(6000, 1000) {
-              //TextView timerText = (TextView) findViewById(R.id.timerValue);
+                //TextView timerText = (TextView) findViewById(R.id.timerValue);
 
                 public void onTick(long millisUntilFinished){
                     //timerText.setText(String.valueOf(millisUntilFinished / 1000));
@@ -410,7 +424,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     // highscore1 = score;
                     // highscoreName = playerName;
                     // }
-                    Intent intent = new Intent(GameActivity.this, factScreen.class);
+                    Intent intent = new Intent(GameActivity.this, factScreen2.class);
                     startActivity(intent);
                 }
             }.start();
