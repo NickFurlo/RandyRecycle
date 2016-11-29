@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_fact_screen_5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    tools:context="cit280.randyrecycle.factScreen5">
+
+    <Button
+        android:text="Game Over!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextLvl"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:onClick="nextLevel"/>
+
+    <TextView
+        android:text="Somalia ranks last on the EPI, at position 180 with a score of 27.66. Somalia is ranked last due to heavy pollution and lack of environmental policies. In Somalia, deforestation is the largest problem."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/nextLvl"
+        android:layout_toEndOf="@+id/nextLvl"
+        android:layout_marginLeft="68dp"
+        android:layout_marginStart="68dp"
+        android:id="@+id/textView" />
+</RelativeLayout>

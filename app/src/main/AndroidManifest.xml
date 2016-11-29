@@ -50,6 +50,47 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cit280.randyrecycle.MainActivity" />
         </activity>
+        <activity android:name=".GameActivity2">
+            <action android:name="cit280.randyrecycle.GameActivity2" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".GameActivity3">
+            <action android:name="cit280.randyrecycle.GameActivity3" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".GameActivity4">
+            <action android:name="cit280.randyrecycle.GameActivity4" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".GameActivity5">
+            <action android:name="cit280.randyrecycle.GameActivity5" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".factScreen">
+            <action android:name="cit280.randyrecycle." />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".factScreen2">
+            <action android:name="cit280.randyrecycle.factScreen2" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".factScreen3">
+            <action android:name="cit280.randyrecycle.factScreen3" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".factScreen4">
+            <action android:name="cit280.randyrecycle.factScreen4" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+        <activity android:name=".factScreen5">
+            <action android:name="cit280.randyrecycle.factScreen5" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </activity>
+
+
+
+
+
     </application>
 
 </manifest>

@@ -1,11 +1,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_game"
+    android:id="@+id/activity_game_4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    tools:context="cit280.randyrecycle.GameActivity"
+    tools:context="cit280.randyrecycle.GameActivity4"
     >
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -37,7 +37,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@mipmap/randy_finland"
+            app:srcCompat="@mipmap/randy_india"
             android:id="@+id/randy"
             android:clickable="true"
             android:adjustViewBounds="true"
@@ -73,7 +73,7 @@
             android:id="@+id/collectedValue"
             android:textColor="@android:color/holo_green_light"
             android:textSize="20sp"
-             />
+            />
 
         <TextView
             android:text="Points:"
@@ -98,14 +98,14 @@
             android:paddingRight="30dp"/>
 
         <TextView
-        android:text="5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:id="@+id/healthValue"
-        android:paddingTop="30dp"
-        android:textSize="20sp"
-        android:textColor="@android:color/holo_red_light" />
+            android:text="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:id="@+id/healthValue"
+            android:paddingTop="30dp"
+            android:textSize="20sp"
+            android:textColor="@android:color/holo_red_light" />
 
         <ImageView
             android:id="@+id/posbottle"

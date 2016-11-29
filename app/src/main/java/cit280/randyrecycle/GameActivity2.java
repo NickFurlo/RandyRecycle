@@ -45,7 +45,7 @@ import static cit280.randyrecycle.R.id.timerValue;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class GameActivity extends AppCompatActivity implements View.OnTouchListener {
+public class GameActivity2 extends AppCompatActivity implements View.OnTouchListener {
 
     //loading in PNG files Sam created, Aaron/Graydon/Nick
     //Also getting screen size for spawning objects off screen
@@ -174,7 +174,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         //game song By: Sam
         if (gameSong == null) {
-            gameSong = MediaPlayer.create(GameActivity.this, R.raw.game_act); //song from raw folder
+            gameSong = MediaPlayer.create(GameActivity2.this, R.raw.game_act); //song from raw folder
             gameSong.setLooping(true);
             gameSong.start();
         }
@@ -398,7 +398,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             //Create and start countdown Timer Nick/Aaron
             //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
             new CountDownTimer(6000, 1000) {
-              //TextView timerText = (TextView) findViewById(R.id.timerValue);
+                //TextView timerText = (TextView) findViewById(R.id.timerValue);
 
                 public void onTick(long millisUntilFinished){
                     //timerText.setText(String.valueOf(millisUntilFinished / 1000));
@@ -410,7 +410,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     // highscore1 = score;
                     // highscoreName = playerName;
                     // }
-                    Intent intent = new Intent(GameActivity.this, factScreen.class);
+                    Intent intent = new Intent(GameActivity2.this, factScreen2.class);
                     startActivity(intent);
                 }
             }.start();
@@ -457,10 +457,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 //monitor randy X position for catching objects, while NOT moving randy on screen
                 randyX = event.getRawX();
                 if (lastAction == MotionEvent.ACTION_DOWN)
-                break;
+                    break;
 
-           default:
-               return false;
+            default:
+                return false;
         }
         return true;
     }

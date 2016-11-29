@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_fact_screen_4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    tools:context="cit280.randyrecycle.factScreen4">
+
+    <Button
+        android:text="Level 5!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextLvl"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:onClick="nextLevel"/>
+
+    <TextView
+        android:text="India is ranked 141 on Yale's EPI chart with a score of 53.58. India , like China, has a very large and dense population. This leads to heavy air and water pollution. With the extreme population growth in India, it is time for the government to improve its environmental laws and regulations."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/nextLvl"
+        android:layout_toEndOf="@+id/nextLvl"
+        android:layout_marginLeft="68dp"
+        android:layout_marginStart="68dp"
+        android:id="@+id/textView" />
+</RelativeLayout>
