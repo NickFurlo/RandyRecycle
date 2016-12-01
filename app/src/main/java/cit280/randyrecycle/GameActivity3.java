@@ -54,10 +54,10 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
     private ImageView posmilk;
     private ImageView posmag;
     private float newX;
-    private int randySize = 30;
+    private int randySize = 90;
     private int screenWidth;
     private int screenHeight;
-    private int randyY = 440;
+    private int randyY = 1000;
     private float randyX;
     private int posbottleX;
     private int posbottleY;
@@ -170,7 +170,19 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game_3);
+
+        //Countdown to start Nick
+        new CountDownTimer(4000, 1000) {
+            TextView initalTimer = (TextView)findViewById(R.id.initalTimer);
+            public void onTick(long millisUntilFinished) {
+                initalTimer.setText(Long.toString(millisUntilFinished / 1000));
+            }
+
+            public void onFinish() {
+                initalTimer.setVisibility(View.GONE);
+            }
+        }.start();
 
         //game song By: Sam
         if (gameSong == null) {
@@ -218,13 +230,13 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
 
         //when gameview is created, put images in Y-position for random respawn Graydon
         posbottle = (ImageView) findViewById(R.id.posbottle);
-        posbottleY = 501;
+        posbottleY = 1;
         poscan = (ImageView) findViewById(R.id.poscan);
-        poscanY = 501;
+        poscanY = 1;
         posmilk = (ImageView) findViewById(R.id.posmilk);
-        posmilkY = 501;
+        posmilkY = 1;
         posmag = (ImageView) findViewById(R.id.posmag);
-        posmagY = 501;
+        posmagY = 1;
         //timer value for stopping/starting level below
         timerValue = (TextView) findViewById(R.id.timerValue);
 
@@ -246,7 +258,7 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
         bottleSpeed = Math.round(screenHeight / 160);
         canSpeed = Math.round(screenHeight / 140);
         magSpeed = Math.round(screenHeight / 130);
-        milkSpeed = Math.round(screenHeight / 110);
+        milkSpeed = Math.round(screenHeight / 120);
 
 
 
@@ -280,32 +292,32 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
 
         //positive items
         posbottleY += bottleSpeed;
-        if (posbottleY > randyY + 60) {
-            posbottleY = -(140);
+        if (posbottleY > randyY + 99) {
+            posbottleY = -(200);
             posbottleX = (int) Math.floor(Math.random() * (screenWidth + posbottle.getWidth()));
         }
         posbottle.setX(posbottleX);
         posbottle.setY(posbottleY);
 
         poscanY += canSpeed;
-        if (poscanY > randyY + 60) {
-            poscanY = -(175);
+        if (poscanY > randyY + 99) {
+            poscanY = -(290);
             poscanX = (int) Math.floor(Math.random() * (screenWidth + poscan.getWidth()));
         }
         poscan.setX(poscanX);
         poscan.setY(poscanY);
 
         posmagY += magSpeed;
-        if (posmagY > randyY + 60) {
-            posmagY = -(120);
+        if (posmagY > randyY + 99) {
+            posmagY = -(240);
             posmagX = (int) Math.floor(Math.random() * (screenWidth + posmag.getWidth()));
         }
         posmag.setX(posmagX);
         posmag.setY(posmagY);
 
         posmilkY += milkSpeed;
-        if (posmilkY > randyY + 60) {
-            posmilkY = -(200);
+        if (posmilkY > randyY + 99) {
+            posmilkY = -(320);
             posmilkX = (int) Math.floor(Math.random() * (screenWidth + posmilk.getWidth()));
         }
         posmilk.setX(posmilkX);
@@ -320,36 +332,36 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
         //catching bottles, once caught retrigger random spawn of bottle image
         int bottleCenterX = posbottleX + posbottle.getWidth() / 2;
         int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
-        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 10 <= bottleCenterY ) {
+        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 50 <= bottleCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
-            posbottleY = 501;
+            posbottleY = 1200;
             score += 1;
         }
 
         //can hitcheck, once triggered reset random can positon
         int canCenterX = poscanX + poscan.getWidth() / 2;
         int canCenterY = poscanY + poscan.getHeight() / 2;
-        if (canCenterX >= randyX- randySize && canCenterX <= randyX + randySize && randyY - 10 <= canCenterY){
+        if (canCenterX >= randyX - randySize && canCenterX <= randyX + randySize && randyY - 50 <= canCenterY){
             soundPool.play(pos2ID, 1, 1, 0, 0, 1);
-            poscanY = 501;
+            poscanY = 1200;
             score += 1;
         }
 
         //mag hitcheck
         int magCenterX = posmagX + posmag.getWidth() / 2;
         int magCenterY = posmagY + posmag.getHeight() / 2;
-        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 10 <= magCenterY ) {
+        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 50 <= magCenterY ) {
             soundPool.play(pos3ID, 1, 1, 0, 0, 1);
-            posmagY = 501;
+            posmagY = 1200;
             score += 1;
         }
 
         //milk hit check
         int milkCenterX = posmilkX + posmilk.getWidth() / 2;
         int milkCenterY = posmilkY + posmilk.getHeight() / 2;
-        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 10 <= milkCenterY ) {
+        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 50 <= milkCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
-            posmilkY = 501;
+            posmilkY = 1200;
             score += 1;
         }
 
@@ -362,26 +374,30 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
     public void missCheck() {
         //checking for bottle miss
         int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
-        if (bottleCenterY >= 490 && bottleCenterY <= 492){
+        if (bottleCenterY >= 1010 && bottleCenterY <= 1080){
             health = health - 1;
+            posbottleY = 1200;
         }
 
         //checking for can miss
         int canCenterY = poscanY + poscan.getHeight() / 2;
-        if (canCenterY >= 490 && canCenterY <= 492){
+        if (canCenterY >= 1010 && canCenterY <= 1080){
             health = health - 1;
+            poscanY = 1200;
         }
 
         //checking for magazine miss
         int magCenterY = posmagY + posmag.getHeight() / 2;
-        if (magCenterY >= 490 && magCenterY <= 492){
+        if (magCenterY >= 1010 && magCenterY <= 1080){
             health = health - 1;
+            posmagY = 1200;
         }
 
         //checking for milk miss
         int milkCenterY = posmilkY + posmilk.getHeight() / 2;
-        if (milkCenterY >= 490 && milkCenterY <= 492){
+        if (milkCenterY >= 1010 && milkCenterY <= 1080){
             health = health - 1;
+            posmilkY = 1200;
         }
 
         //update health value on missCheck() Graydon
@@ -395,9 +411,15 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
     public boolean onTouch(View view, MotionEvent event) {
         //tap to start
         if (start_flg == false){
+            //game song By: Sam
+            if (gameSong == null) {
+                gameSong = MediaPlayer.create(GameActivity3.this, R.raw.game_act); //song from raw folder
+                //gameSong.setLooping(true);
+                gameSong.start();
+            }
             //Create and start countdown Timer Nick/Aaron
             //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
-            new CountDownTimer(6000, 1000) {
+            new CountDownTimer(10000, 1000) {
                 //TextView timerText = (TextView) findViewById(R.id.timerValue);
 
                 public void onTick(long millisUntilFinished){
@@ -410,6 +432,7 @@ public class GameActivity3 extends AppCompatActivity implements View.OnTouchList
                     // highscore1 = score;
                     // highscoreName = playerName;
                     // }
+                    gameSong.stop();
                     Intent intent = new Intent(GameActivity3.this, factScreen3.class);
                     startActivity(intent);
                 }

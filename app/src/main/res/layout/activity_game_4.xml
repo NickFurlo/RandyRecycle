@@ -109,31 +109,40 @@
 
         <ImageView
             android:id="@+id/posbottle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/posbottle"
             />
 
         <ImageView
             android:id="@+id/poscan"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/poscan"
             />
 
         <ImageView
             android:id="@+id/posmilk"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/posmilk"
             />
 
         <ImageView
             android:id="@+id/posmag"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/posmag"
             />
+
+        <TextView
+            android:text="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/initalTimer"
+            android:textSize="65sp"
+            android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     </FrameLayout>
 

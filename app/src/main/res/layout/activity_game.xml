@@ -98,7 +98,7 @@
             android:paddingRight="30dp"/>
 
         <TextView
-        android:text="5"
+        android:text="20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -109,29 +109,29 @@
 
         <ImageView
             android:id="@+id/posbottle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/posbottle"
             />
 
         <ImageView
             android:id="@+id/poscan"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/poscan"
             />
 
         <ImageView
             android:id="@+id/posmilk"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/posmilk"
             />
 
         <ImageView
             android:id="@+id/posmag"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/posmag"
             />
 
