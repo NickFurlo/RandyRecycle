@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     //loading in PNG files Sam created, Aaron/Graydon/Nick
     //Also getting screen size for spawning objects off screen
-    private boolean canStart = false;
+    private boolean initialCountdownFinished = false;
     private ImageView posbottle;
     private ImageView poscan;
     private ImageView posmilk;
@@ -184,7 +184,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             }
             public void onFinish() {
                 initalTimer.setVisibility(View.GONE);
-                canStart = true;
+                initialCountdownFinished = true;
             }
         }.start();
         
@@ -432,6 +432,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     // }
                     gameSong.stop();
                     Intent intent = new Intent(GameActivity.this, factScreen.class);
+                    //Nick, passes score to fact screen for leaderboard.
+                    intent.putExtra("score", Integer.toString(score));
                     startActivity(intent);
                 }
             }.start();
@@ -444,10 +446,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            System.out.println("canStart: " + canStart);
-
-                            if(canStart)
-                                changePos();
+                            if(initialCountdownFinished)
+                            changePos();
                         }
                     });
                 }
@@ -472,7 +472,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     view.setX(newX);
                 }
                 double testx = event.getRawX() + dX;
-                System.out.println("testX = " + testx);
+                //System.out.println("testX = " + testx);
                 lastAction = MotionEvent.ACTION_MOVE;
                 break;
 
@@ -552,4 +552,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+    //Nick
+    public int getScore(){
+        return score;
+    }
+
 }
