@@ -51,6 +51,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     //loading in PNG files Sam created, Aaron/Graydon/Nick
     //Also getting screen size for spawning objects off screen
+    private boolean canStart = false;
     private ImageView posbottle;
     private ImageView poscan;
     private ImageView posmilk;
@@ -179,10 +180,11 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             TextView initalTimer = (TextView)findViewById(R.id.initalTimer);
             public void onTick(long millisUntilFinished) {
                 initalTimer.setText(Long.toString(millisUntilFinished / 1000));
+                if(millisUntilFinished <1000){}
             }
-
             public void onFinish() {
                 initalTimer.setVisibility(View.GONE);
+                canStart = true;
             }
         }.start();
         
@@ -434,7 +436,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 }
             }.start();
 
-            //starts the objects falling Graydon/Aaron
+            //starts the objects falling Graydon/Aaron/Nick
             start_flg = true;
             timer.schedule(new TimerTask() {
                 @Override
@@ -442,7 +444,10 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            changePos();
+                            System.out.println("canStart: " + canStart);
+
+                            if(canStart)
+                                changePos();
                         }
                     });
                 }
