@@ -71,7 +71,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private int posmilkX;
     private int posmilkY;
     private int score;
-    //starting health value, change for levels Graydon
+    //starting health value, change for higher levels and difficulty Graydon
     private int health = 20;
     private TextView collectedValue;
     private TextView healthValue;
@@ -228,13 +228,13 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
         //when gameview is created, put images in Y-position for random respawn Graydon
         posbottle = (ImageView) findViewById(R.id.posbottle);
-        posbottleY = 1;
+        posbottleY = 1200;
         poscan = (ImageView) findViewById(R.id.poscan);
-        poscanY = 1;
+        poscanY = 1200;
         posmilk = (ImageView) findViewById(R.id.posmilk);
-        posmilkY = 1;
+        posmilkY = 1200;
         posmag = (ImageView) findViewById(R.id.posmag);
-        posmagY = 1;
+        posmagY = 1200;
         //timer value for stopping/starting level below
         timerValue = (TextView) findViewById(R.id.timerValue);
 
@@ -282,13 +282,15 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         }
 
     }
-
+    //Object falling speed is controlled by changePos(). As long as it
+    //is above Randy's Y value (visually, not actual value), just update the position.
+    //Once it passes randy, reset the Y-value to be dropped again, and randomize X position
+    //Aaron and Graydon
     public void changePos() {
-        //calling hit and miss checks while positions are changed
+        //calling hit and miss checks while positions are changed. Graydon
         hitCheck();
         missCheck();
 
-        //positive items
         posbottleY += bottleSpeed;
         if (posbottleY > randyY + 99) {
             posbottleY = -(200);
@@ -327,10 +329,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     public void hitCheck() {
 
         //bottle hit check, This causes points to go up and items to respawn
-        //catching bottles, once caught retrigger random spawn of bottle image
         int bottleCenterX = posbottleX + posbottle.getWidth() / 2;
         int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
-        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 50 <= bottleCenterY ) {
+        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 75 <= bottleCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
             posbottleY = 1200;
             score += 1;
@@ -339,7 +340,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         //can hitcheck, once triggered reset random can positon
         int canCenterX = poscanX + poscan.getWidth() / 2;
         int canCenterY = poscanY + poscan.getHeight() / 2;
-        if (canCenterX >= randyX - randySize && canCenterX <= randyX + randySize && randyY - 50 <= canCenterY){
+        if (canCenterX >= randyX - randySize && canCenterX <= randyX + randySize && randyY - 75 <= canCenterY){
             soundPool.play(pos2ID, 1, 1, 0, 0, 1);
             poscanY = 1200;
             score += 1;
@@ -348,7 +349,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         //mag hitcheck
         int magCenterX = posmagX + posmag.getWidth() / 2;
         int magCenterY = posmagY + posmag.getHeight() / 2;
-        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 50 <= magCenterY ) {
+        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 75 <= magCenterY ) {
             soundPool.play(pos3ID, 1, 1, 0, 0, 1);
             posmagY = 1200;
             score += 1;
@@ -357,17 +358,17 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         //milk hit check
         int milkCenterX = posmilkX + posmilk.getWidth() / 2;
         int milkCenterY = posmilkY + posmilk.getHeight() / 2;
-        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 50 <= milkCenterY ) {
+        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 75 <= milkCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
             posmilkY = 1200;
             score += 1;
         }
 
-        //update score  on hitCheck() Aaron/Nick/Graydon
+        //update onscreen score on hitCheck() Aaron/Nick/Graydon
         collectedValue.setText("" + score);
     }
 
-    //once an item passes Randy's Y value and reaches y=490, decrease health by 1
+    //once an item passes Randy's Y value, decrease health by 1
     //Graydon
     public void missCheck() {
         //checking for bottle miss
@@ -418,10 +419,8 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             //Create and start countdown Timer Nick/Aaron
             //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
             new CountDownTimer(10000, 1000) {
-                //TextView timerText = (TextView) findViewById(R.id.timerValue);
-
                 public void onTick(long millisUntilFinished){
-                    //timerText.setText(String.valueOf(millisUntilFinished / 1000));
+                    //update timer on screen
                     timerValue.setText(String.valueOf(millisUntilFinished/1000));
                 }
                 public void onFinish() {
@@ -493,7 +492,6 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
