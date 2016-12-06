@@ -434,6 +434,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                     Intent intent = new Intent(GameActivity.this, factScreen.class);
                     //Nick, passes score to fact screen for leaderboard.
                     intent.putExtra("score", Integer.toString(score));
+                    intent.putExtra("health", Integer.toString(health));
                     startActivity(intent);
                 }
             }.start();
