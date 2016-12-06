@@ -224,13 +224,13 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
 
         //when gameview is created, put images in Y-position for random respawn Graydon
         posbottle = (ImageView) findViewById(R.id.posbottle);
-        posbottleY = 1;
+        posbottleY = 1200;
         poscan = (ImageView) findViewById(R.id.poscan);
-        poscanY = 1;
+        poscanY = 1200;
         posmilk = (ImageView) findViewById(R.id.posmilk);
-        posmilkY = 1;
+        posmilkY = 1200;
         posmag = (ImageView) findViewById(R.id.posmag);
-        posmagY = 1;
+        posmagY = 1200;
         //timer value for stopping/starting level below
         timerValue = (TextView) findViewById(R.id.timerValue);
 
@@ -249,10 +249,10 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
 
         //set speed variables, change number (lower = faster), moves relative to
         // proportion of screen size Graydon/Aaron
-        bottleSpeed = Math.round(screenHeight / 160);
-        canSpeed = Math.round(screenHeight / 140);
-        magSpeed = Math.round(screenHeight / 130);
-        milkSpeed = Math.round(screenHeight / 120);
+        bottleSpeed = Math.round(screenHeight / 130);
+        canSpeed = Math.round(screenHeight / 115);
+        magSpeed = Math.round(screenHeight / 98);
+        milkSpeed = Math.round(screenHeight / 105);
 
 
 
@@ -326,7 +326,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
         //catching bottles, once caught retrigger random spawn of bottle image
         int bottleCenterX = posbottleX + posbottle.getWidth() / 2;
         int bottleCenterY = posbottleY + posbottle.getHeight() / 2;
-        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 50 <= bottleCenterY ) {
+        if (bottleCenterX >= randyX - randySize && bottleCenterX <= randyX + randySize && randyY - 75 <= bottleCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
             posbottleY = 1200;
             score += 1;
@@ -335,7 +335,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
         //can hitcheck, once triggered reset random can positon
         int canCenterX = poscanX + poscan.getWidth() / 2;
         int canCenterY = poscanY + poscan.getHeight() / 2;
-        if (canCenterX >= randyX - randySize && canCenterX <= randyX + randySize && randyY - 50 <= canCenterY){
+        if (canCenterX >= randyX - randySize && canCenterX <= randyX + randySize && randyY - 75 <= canCenterY){
             soundPool.play(pos2ID, 1, 1, 0, 0, 1);
             poscanY = 1200;
             score += 1;
@@ -344,7 +344,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
         //mag hitcheck
         int magCenterX = posmagX + posmag.getWidth() / 2;
         int magCenterY = posmagY + posmag.getHeight() / 2;
-        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 50 <= magCenterY ) {
+        if (magCenterX >= randyX - randySize && magCenterX <= randyX + randySize && randyY - 75 <= magCenterY ) {
             soundPool.play(pos3ID, 1, 1, 0, 0, 1);
             posmagY = 1200;
             score += 1;
@@ -353,7 +353,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
         //milk hit check
         int milkCenterX = posmilkX + posmilk.getWidth() / 2;
         int milkCenterY = posmilkY + posmilk.getHeight() / 2;
-        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 50 <= milkCenterY ) {
+        if (milkCenterX >= randyX - randySize && milkCenterX <= randyX + randySize && randyY - 75 <= milkCenterY ) {
             soundPool.play(posID, 1, 1, 0, 0, 1);
             posmilkY = 1200;
             score += 1;
@@ -413,7 +413,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
             }
             //Create and start countdown Timer Nick/Aaron
             //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
-            new CountDownTimer(10000, 1000) {
+            new CountDownTimer(45000, 1000) {
                 //TextView timerText = (TextView) findViewById(R.id.timerValue);
 
                 public void onTick(long millisUntilFinished){

@@ -418,7 +418,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             }
             //Create and start countdown Timer Nick/Aaron
             //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
-            new CountDownTimer(10000, 1000) {
+            new CountDownTimer(45000, 1000) {
                 public void onTick(long millisUntilFinished){
                     //update timer on screen
                     timerValue.setText(String.valueOf(millisUntilFinished/1000));
