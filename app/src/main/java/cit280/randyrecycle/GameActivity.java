@@ -36,6 +36,7 @@ import java.util.TimerTask;
 import java.util.Random;
 
 import static cit280.randyrecycle.R.id.initalTimer;
+import static cit280.randyrecycle.R.id.start;
 import static cit280.randyrecycle.R.id.textView;
 import static cit280.randyrecycle.R.id.timerValue;
 
@@ -72,7 +73,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     private int posmilkY;
     private int score;
     //starting health value, change for higher levels and difficulty Graydon
-    private int health = 20;
+    private int health = 30;
     private TextView collectedValue;
     private TextView healthValue;
     private TextView timerValue;
@@ -172,7 +173,9 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         setContentView(R.layout.activity_game);
 
         //Countdown to start Nick
+        start_flg = false;
         new CountDownTimer(4000, 1000) {
+
             TextView initalTimer = (TextView)findViewById(R.id.initalTimer);
             public void onTick(long millisUntilFinished) {
                 initalTimer.setText(Long.toString(millisUntilFinished / 1000));
@@ -181,6 +184,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
             public void onFinish() {
                 initalTimer.setVisibility(View.GONE);
                 initialCountdownFinished = true;
+                start_flg=true;
             }
         }.start();
         
@@ -403,24 +407,22 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
                 gameSong.start();
             }
             //Create and start countdown Timer Nick/Aaron
-            //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
-            new CountDownTimer(45000, 1000) {
+            start_flg = false;
+            new CountDownTimer(30000, 1000) {
                 public void onTick(long millisUntilFinished){
                     //update timer on screen
+
                     timerValue.setText(String.valueOf(millisUntilFinished/1000));
                 }
                 public void onFinish() {
-                    //TODO: Create if statement checking high scores when time runs out
-                    //if (score >= highscore1){
-                    // highscore1 = score;
-                    // highscoreName = playerName;
-                    // }
+
                     gameSong.stop();
                     Intent intent = new Intent(GameActivity.this, factScreen.class);
                     //Nick, passes score to fact screen for leaderboard.
                     intent.putExtra("score", Integer.toString(score));
                     intent.putExtra("health", Integer.toString(health));
                     startActivity(intent);
+                    start_flg = true;
                 }
             }.start();
 

@@ -1,5 +1,5 @@
 package cit280.randyrecycle;
-
+//Nick furlo
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -29,6 +29,7 @@ import java.util.List;
 public class LeaderboardActivity extends AppCompatActivity {
 
     private String filePath ="leaderboard_lvl1.txt";
+    private boolean filePathSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
     //Nick with help from http://stackoverflow.com/questiooutns/14376807/how-to-read-write-string-from-a-file-in-android
     //converts leaderboard txt to string.
-    private String readFromFile(Context context) {
+    private String readFromFile(Context context, String filePath) {
 
         String ret = "";
 
@@ -81,7 +82,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     private void displayLeaderboard(){
         TextView leaderboardText = (TextView)findViewById(R.id.leaderboardText);
         //sortLeaderboard();
-        leaderboardText.setText(readFromFile(this));
+        leaderboardText.setText(readFromFile(this, filePath));
     }
 
     //nick with help from http://stackoverflow.com/questions/12857242/java-create-string-array-from-text-file
@@ -124,6 +125,39 @@ public class LeaderboardActivity extends AppCompatActivity {
             writer.close();
         }catch(Exception e){
             System.err.println("Caught Exception: "+e.getMessage());
+        }
+    }
+
+
+    //sets filePath depending on what button user clicks in leaderboard
+
+    public void setFilePath(View v){
+        switch(v.getId()){
+            case R.id.lvl1:
+                filePath = "leaderboard_lvl1.txt";
+                filePathSet = true;
+                displayLeaderboard();
+            break;
+            case R.id.lvl2:
+                filePath = "leaderboard_lvl2.txt";
+                filePathSet = true;
+                displayLeaderboard();
+                break;
+            case R.id.lvl3:
+                filePath = "leaderboard_lvl3.txt";
+                filePathSet = true;
+                displayLeaderboard();
+                break;
+            case R.id.lvl4:
+                filePath = "leaderboard_lvl4.txt";
+                filePathSet = true;
+                displayLeaderboard();
+                break;
+            case R.id.lvl5:
+                filePath = "leaderboard_lvl5.txt";
+                filePathSet = true;
+                displayLeaderboard();
+                break;
         }
     }
 

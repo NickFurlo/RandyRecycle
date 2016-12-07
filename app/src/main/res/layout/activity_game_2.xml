@@ -55,7 +55,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:text="30"
+            android:text="45"
             android:layout_width="203dp"
             android:layout_height="wrap_content"
             android:id="@+id/timerValue"

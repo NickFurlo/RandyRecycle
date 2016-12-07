@@ -69,7 +69,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
     private int posmilkY;
     private int score;
     //starting health value, change for levels Graydon
-    private int health = 20;
+    private int health = 40;
     private TextView collectedValue;
     private TextView healthValue;
     private TextView timerValue;
@@ -173,6 +173,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
         setContentView(R.layout.activity_game_2);
 
         //Countdown to start Nick
+        start_flg = false;
         new CountDownTimer(4000, 1000) {
             TextView initalTimer = (TextView)findViewById(R.id.initalTimer);
             public void onTick(long millisUntilFinished) {
@@ -181,6 +182,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
 
             public void onFinish() {
                 initalTimer.setVisibility(View.GONE);
+                start_flg = true;
             }
         }.start();
 
@@ -412,8 +414,7 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
                 gameSong.start();
             }
             //Create and start countdown Timer Nick/Aaron
-            //TODO: CHANGE BACK TO 60 SECONDS OR WHATEVER, lowered for testing
-            new CountDownTimer(45000, 1000) {
+            new CountDownTimer(30000, 1000) {
                 //TextView timerText = (TextView) findViewById(R.id.timerValue);
 
                 public void onTick(long millisUntilFinished){
@@ -421,13 +422,12 @@ public class GameActivity2 extends AppCompatActivity implements View.OnTouchList
                     timerValue.setText(String.valueOf(millisUntilFinished/1000));
                 }
                 public void onFinish() {
-                    //TODO: Create if statement checking high scores when time runs out
-                    //if (score >= highscore1){
-                    // highscore1 = score;
-                    // highscoreName = playerName;
-                    // }
+
                     gameSong.stop();
                     Intent intent = new Intent(GameActivity2.this, factScreen2.class);
+                    //Nick, passes score to fact screen for leaderboard.
+                    intent.putExtra("score", Integer.toString(score));
+                    intent.putExtra("health", Integer.toString(health));
                     startActivity(intent);
                 }
             }.start();

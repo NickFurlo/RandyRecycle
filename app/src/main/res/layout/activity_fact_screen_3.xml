@@ -33,4 +33,45 @@
         android:layout_marginLeft="68dp"
         android:layout_marginStart="68dp"
         android:id="@+id/textView" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:layout_below="@+id/nextLvl"
+        android:id="@+id/userName" />
+
+    <TextView
+        android:text="Score: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scoreLabel"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:text="null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scoreLabel"
+        android:layout_toRightOf="@+id/scoreLabel"
+        android:layout_toEndOf="@+id/scoreLabel"
+        android:id="@+id/scoreValue"
+        android:textSize="24sp" />
+
+    <Button
+        android:text="Save To Leaderboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveLeaderboard"
+        android:layout_below="@+id/userName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/scoreLabel"
+        android:onClick="saveScore"
+        android:layout_toLeftOf="@+id/scoreLabel"/>
+
 </RelativeLayout>

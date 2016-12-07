@@ -54,7 +54,7 @@ public class factScreen extends AppCompatActivity {
                 leaderboard.createNewFile();
                 FileOutputStream fileOut = openFileOutput(filePath, MODE_APPEND);
                 OutputStreamWriter outputWriter = new OutputStreamWriter(fileOut);
-                outputWriter.append("Score   Health   Username\n");
+                outputWriter.append("Level 1\n"+"Score   Health   Username\n");
                 System.out.println("Created File at " + leaderboard.getAbsolutePath());
                 outputWriter.close();
             } catch (IOException e) {
